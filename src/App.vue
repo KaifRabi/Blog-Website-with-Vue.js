@@ -1,28 +1,33 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header v-show="!storeData.selectedBlog"/>
+    <div 
+    v-show="!storeData.selectedBlog"
+    class="flex justify-center flex-wrap mx-auto gap-4 max-w-[1000px]">
+      <Blog v-for="(data, index) in storeData.blogData" :data="data" :key="index" />
+    </div>
+    <SelectedBlog v-show="storeData.selectedBlog" />
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Header from "@/components/headerPart.vue";
+import Blog from "@/components/blogPost.vue";
+import SelectedBlog from "@/components/selectedBlog.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Header,
+    Blog,
+    SelectedBlog
+  },
+  computed: {
+    storeData() {
+      return this.$store.state;
+    },
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>
